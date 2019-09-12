@@ -25,11 +25,10 @@ services:
         ports:
             - "5050:80"
 
-    app:
+    flask:
         build:
             context: .
-            dockerfile: docker/python/Dockerfile
-        command: /start-dev.sh
+            dockerfile: docker/flask/Dockerfile
         depends_on:
             - postgres
         environment:

@@ -1,5 +1,5 @@
 ################################################################################
-# Docker-compose django service commands for dev
+# Docker-compose flask service commands for dev
 ################################################################################
 
 run:

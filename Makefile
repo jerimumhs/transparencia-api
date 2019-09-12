@@ -3,29 +3,22 @@
 ################################################################################
 
 run:
-	docker-compose run django $(cmd)
+	docker-compose run flask $(cmd)
 
 flake8:
-	docker-compose run django flake8
+	docker-compose run flask flake8
 
 migrate:
-	docker-compose run django python manage.py migrate $(app)
+	docker-compose run flask ????
 
 makemigrations:
-	docker-compose run django python manage.py makemigrations
+	docker-compose run flask ????
 
 test:
-	docker-compose run django python manage.py test $(app)
+	docker-compose run flask ????
 
 bash:
-	docker-compose run django bash
-
-shell:
-	docker-compose run django python manage.py shell
-
-coverage:
-	docker-compose run django coverage run --source='.' manage.py test $(app)
-	docker-compose run django coverage report
+	docker-compose run flask bash
 
 up:
 	docker-compose up -d
@@ -52,12 +45,6 @@ clear.python:
 
 clear.docker:
 	docker ps | awk '{print $$1}' | grep -v CONTAINER | xargs docker stop
-
-################################################################################
-# Populate commands
-################################################################################
-populate.superuser:
-	docker-compose run django python manage.py populate_superuser
 
 ################################################################################
 # Local commands

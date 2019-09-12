@@ -1,26 +1,20 @@
-# Bleeding edge Django
-django==2.2.3
-python-decouple==3.1
-django-cors-headers==2.2.0
-django-polymorphic==2.1.2
-django-cleanup==4.0.0
-django-crispy-forms==1.7.2
+# Flask
+Flask==1.0.2
+Flask-SQLAlchemy==2.3.2
+Flask-Migrate==2.4.0
 
-# Database
-psycopg2-binary==2.7.6.1
+# API, Serialization & documentation
+Flask-RESTful==0.3.7
+flask-marshmallow==0.10.1
+marshmallow-sqlalchemy==0.19.0
+flasgger==0.9.2
 
-# Fixtures
-factory_boy==2.11.1
+# Logging
+notifiers==1.2.0
+loguru==0.2.5
 
-# CI
-flake8==3.6.0
+# JWT
+flask-jwt-extended==3.17.0
 
-# Setup tools
-setuptools==40.6.3
-
-# Dependencies
-whitenoise==4.1.2
-
-# Qr Code
-qrcode==6.1
-Pillow==6.1.0
+# CORS
+flask-cors==3.0.7

@@ -1,3 +1,5 @@
 #!/bin/sh
-python manage.py migrate
-python manage.py runserver 0.0.0.0:8000
+export FLASK_APP=transparencia_api
+export FLASK_ENV=development
+
+flask run -h 0.0.0.0 -p 5000

@@ -4,7 +4,7 @@ from decouple import config as decouple_config
 class Config(object):
     # FLASK
     DEBUG = False
-    TESTING = False 
+    TESTING = False
     # JWT
     JWT_TOKEN_LOCATION = ['headers']
     JWT_ACCESS_TOKEN_EXPIRES = 20
@@ -27,7 +27,7 @@ class ProductionConfig(Config):
 
 class DevelopmentConfig(Config):
     # FLASK
-    TESTING = True 
+    TESTING = True
     DEBUG = True
 
 

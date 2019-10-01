@@ -8,17 +8,23 @@ run:
 flake8:
 	docker-compose run flask flake8
 
-migrate:
-	docker-compose run flask ????
+db.init:
+	docker-compose run flask flask db init
 
-makemigrations:
-	docker-compose run flask ????
+db.migrate:
+	docker-compose run flask flask db migrate
+
+db.upgrade:
+	docker-compose run flask flask db upgrade
 
 test:
 	docker-compose run flask ????
 
 bash:
 	docker-compose run flask bash
+
+shell:
+	docker-compose run flask flask shell
 
 up:
 	docker-compose up -d

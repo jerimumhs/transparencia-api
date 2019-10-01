@@ -10,6 +10,7 @@ from flasgger import Swagger
 from loguru import logger
 
 from config import configure_app
+from transparencia_api.resources import add_resources
 
 
 app = Flask(__name__)
@@ -22,6 +23,5 @@ migrate = Migrate(app, db)
 jwt = JWTManager(app)
 swagger = Swagger(app)
 
-from transparencia_api.resources import add_resources
 
 add_resources(api)

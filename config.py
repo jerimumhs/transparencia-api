@@ -1,4 +1,4 @@
-import os
+from decouple import config as decouple_config
 
 
 class Config(object):
@@ -11,28 +11,30 @@ class Config(object):
     JWT_REFRESH_TOKEN_EXPIRES = 1800
     SECRET_KEY = 's3nh4-d01d4'
 
+    # POSTGRES
+    DB_HOST = decouple_config('DB_HOST', 'postgres')
+    DB_PORT = decouple_config('DB_HOST', 5432)
+    DB_NAME = decouple_config('DB_NAME', 'postgres')
+    DB_USER = decouple_config('DB_USER', 'postgres')
+    DB_PASSWORD = decouple_config('DB_PASSWORD', 'postgres')
+    SQLALCHEMY_DATABASE_URI = f'postgres://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}?client_encoding=utf8'
+
 
 class ProductionConfig(Config):
     # FLASK
     DEBUG = False
-    # POSTGRES
-    SQLALCHEMY_DATABASE_URI = 'postgres://root:s3nh4@0.0.0.0:5432/transparencia?client_encoding=utf8'
 
 
 class DevelopmentConfig(Config):
     # FLASK
     TESTING = True 
     DEBUG = True
-    # POSTGRES
-    SQLALCHEMY_DATABASE_URI = 'postgres://0.0.0.0:5432/transparencia-dev?client_encoding=utf8'
 
 
 class TestingConfig(Config):
     # FLASK
     TESTING = True
     DEBUG = False
-    # POSTGRES
-    SQLALCHEMY_DATABASE_URI = 'postgres://0.0.0.0:5432/transparencia-test?client_encoding=utf8'
 
 
 config = {
@@ -44,5 +46,5 @@ config = {
 
 
 def configure_app(app):
-    config_name = os.getenv('FLASK_ENV', 'test')
+    config_name = decouple_config('FLASK_ENV', 'test')
     app.config.from_object(config[config_name])

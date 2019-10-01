@@ -18,7 +18,7 @@ db.upgrade:
 	docker-compose run flask flask db upgrade
 
 test:
-	docker-compose run flask ????
+	docker-compose run flask python -m unittest discover
 
 bash:
 	docker-compose run flask bash

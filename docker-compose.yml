@@ -1,41 +1,37 @@
 version: '3'
+services:
+  postgres:
+    image: postgres:11
+    volumes:
+      - pg_volume:/var/lib/postgresql/data
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    ports:
+      - "5432:5432"
+
+  api-server:
+    image: python:3.7
+    depends_on:
+      - postgres
+    environment:
+      - FLASK_APP=transparencia_api
+      - FLASK_RUN_HOST=0.0.0.0
+      - POSTGRES_USER=postgres
+      - USE_DOCKER=yes
+    volumes:
+      - .:/api
+    ports:
+      - "5000:5000"
+    env_file: .env
+    restart: on-failure
+    command:
+      bash -c "cd api/ &&
+      pip install --upgrade pip &&
+      pip install -r requirements/local.txt &&
+      flask run"
 
 volumes:
-    postgres_data: {}
-
-services:
-    postgres:
-        image: postgres:11
-        volumes:
-            - postgres_data:/var/lib/postgresql/data
-        environment:
-            - POSTGRES_USER=postgres
-            - POSTGRES_PASSWORD=postgres
-            - POSTGRES_DB=postgres
-        ports:
-            - "5432:5432"
-
-    pgadmin:
-        image: dpage/pgadmin4:latest
-        depends_on:
-            - postgres
-        environment:
-            PGADMIN_DEFAULT_EMAIL: pgadmin@mail.com
-            PGADMIN_DEFAULT_PASSWORD: pgadmin
-        ports:
-            - "5050:80"
-
-    flask:
-        build:
-            context: .
-            dockerfile: docker/flask/Dockerfile
-        depends_on:
-            - postgres
-        environment:
-            - POSTGRES_USER=postgres
-            - USE_DOCKER=yes
-        volumes:
-            - .:/app
-        ports:
-            - "5000:5000"
-        env_file: .env
+  pg_volume:

@@ -1,5 +1,5 @@
 # Python config
-python-decouple==3.1
+dynaconf==2.1.1
 
 # Flask
 Flask==1.0.2

@@ -1,0 +1,16 @@
+[development]
+# FLASK
+FLASK_DEBUG = false
+FLASK_TESTING = false
+# JWT
+JWT_TOKEN_LOCATION = ['headers']
+JWT_ACCESS_TOKEN_EXPIRES = 20
+JWT_REFRESH_TOKEN_EXPIRES = 1800
+SECRET_KEY = 's3nh4-d01d4'
+# PSQL
+DB_HOST = 'localhost'
+DB_PORT = 5432
+DB_NAME = 'transparencia_api'
+DB_USER = 'postgres'
+DB_PASSWORD = 'postgres'
+SQLALCHEMY_DATABASE_URI = 'postgres://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}?client_encoding=utf8'

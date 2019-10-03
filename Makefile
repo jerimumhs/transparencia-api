@@ -1,24 +1,24 @@
 ################################################################################
-# Docker-compose flask service commands for dev
+# Docker-compose api-server service commands for dev
 ################################################################################
 
 run:
-	docker-compose run flask $(cmd)
+	docker-compose run api-server $(cmd)
 
 flake8:
-	docker-compose run flask flake8
+	docker-compose run api-server flake8
 
 migrate:
-	docker-compose run flask ????
+	docker-compose run api-server ????
 
 makemigrations:
-	docker-compose run flask ????
+	docker-compose run api-server ????
 
 test:
-	docker-compose run flask ????
+	echo 'TEST!'
 
 bash:
-	docker-compose run flask bash
+	docker-compose run api-server bash
 
 up:
 	docker-compose up -d

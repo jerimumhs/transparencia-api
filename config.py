@@ -13,7 +13,7 @@ class Config(object):
 
     # POSTGRES
     DB_HOST = decouple_config('DB_HOST', 'postgres')
-    DB_PORT = decouple_config('DB_HOST', 5432)
+    DB_PORT = decouple_config('DB_PORT', 5432)
     DB_NAME = decouple_config('DB_NAME', 'postgres')
     DB_USER = decouple_config('DB_USER', 'postgres')
     DB_PASSWORD = decouple_config('DB_PASSWORD', 'postgres')

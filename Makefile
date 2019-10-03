@@ -1,59 +1,31 @@
-################################################################################
-# Docker-compose flask service commands for dev
-################################################################################
+default:
+	@echo "Local examples:"
+	@echo "  make set-env           # Set the dev enviroment (install deps and create .env)"
+	@echo "  make run               # Starts a Flask development server locally"
+	@echo "  make shell             # Runs 'flask shell' locally with iPython"
+	@echo "  make flake8            # Check code styling with flake8"
+	@echo "  make makemigration     # Create a new migration"
+	@echo "  make migrate           # Apply a new migration"
+	@echo "  make downgrade         # Reverse a migration"
 
 run:
-	docker-compose run flask $(cmd)
+	flask run
 
-flake8:
-	docker-compose run flask flake8
+shell:
+	flask shell
 
-migrate:
-	docker-compose run flask ????
-
-makemigrations:
-	docker-compose run flask ????
-
-test:
-	docker-compose run flask ????
-
-bash:
-	docker-compose run flask bash
-
-up:
-	docker-compose up -d
-
-logs:
-	docker-compose logs -f
-
-down:
-	docker-compose down
-
-build:
-	docker-compose build
-
-config.env:
+set-env:
+	pip install -r requirements-dev.txt
 	cp .env.example .env
 
-current_dir = $(notdir $(shell pwd))
-remove.volumes:
-	docker-compose down
-	docker volume rm $(current_dir)_postgres_data
+db.makemigration:
+	flask db migrate
 
-clear.python:
-	find . -type d -name __pycache__ -o \( -type f -name '*.py[co]' \) -print0 | xargs -0 rm -rf
+db.migrate:
+	flask db upgrade
 
-clear.docker:
-	docker ps | awk '{print $$1}' | grep -v CONTAINER | xargs docker stop
+db.downgrade:
+	flask db downgrade
 
-################################################################################
-# Local commands
-################################################################################
-local.pip.install:
-	pip install -r requirements/local.txt
-
-################################################################################
-# Heroku commands
-################################################################################
-deploy:
-	git push heroku
+flake8:
+	flake8

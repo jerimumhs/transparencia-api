@@ -38,7 +38,7 @@ config.env:
 current_dir = $(notdir $(shell pwd))
 remove.volumes:
 	docker-compose down
-	docker volume rm $(current_dir)_postgres_data
+	docker volume rm $(current_dir)_pg_volume
 
 clear.python:
 	find . -type d -name __pycache__ -o \( -type f -name '*.py[co]' \) -print0 | xargs -0 rm -rf

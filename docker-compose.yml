@@ -5,33 +5,22 @@ services:
     volumes:
       - pg_volume:/var/lib/postgresql/data
     restart: always
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=postgres
     ports:
       - "5432:5432"
+    env_file: .env
 
   api-server:
-    image: python:3.7
+    build:
+      context: .
+      dockerfile: Dockerfile
     depends_on:
       - postgres
-    environment:
-      - FLASK_APP=transparencia_api
-      - FLASK_RUN_HOST=0.0.0.0
-      - POSTGRES_USER=postgres
-      - USE_DOCKER=yes
     volumes:
-      - .:/api
+      - .:/app
     ports:
       - "5000:5000"
     env_file: .env
     restart: on-failure
-    command:
-      bash -c "cd api/ &&
-      pip install --upgrade pip &&
-      pip install -r requirements/local.txt &&
-      flask run"
 
 volumes:
-  pg_volume:
+  pg_volume: {}

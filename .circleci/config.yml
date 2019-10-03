@@ -19,7 +19,7 @@ jobs:
     executor: python-executor
     steps:
       - checkout
-      - run: pip install flake8
+      - run: sudo pip install flake8
       - run: flake8
 
   test:

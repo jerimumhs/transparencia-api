@@ -1,0 +1,32 @@
+version: 2.1
+
+executors:
+  machine-executor:
+    machine:
+      image: circleci/classic:latest
+
+commands:
+  base-command:
+    steps:
+      - checkout
+      - run: make config.env
+
+jobs:
+  flake8:
+    executor: machine-executor
+    steps:
+      - base-command
+      - run: make flake8
+
+  test:
+    executor: machine-executor
+    steps:
+      - base-command
+      - run: make test
+
+workflows:
+  version: 2.1
+  tests:
+    jobs:
+      - flake8
+      - test

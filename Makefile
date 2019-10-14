@@ -33,7 +33,7 @@ build:
 	docker-compose build
 
 config.env:
-	cp .env.example .env
+	cp .env.sample .env
 
 current_dir = $(notdir $(shell pwd))
 remove.volumes:

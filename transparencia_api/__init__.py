@@ -23,5 +23,4 @@ jwt = JWTManager(app)
 swagger = Swagger(app)
 
 
-
 add_resources(api)

@@ -6,7 +6,6 @@ from flask_marshmallow import Marshmallow
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
 from flasgger import Swagger
-from loguru import logger
 from dynaconf import FlaskDynaconf
 
 from transparencia_api.resources import add_resources

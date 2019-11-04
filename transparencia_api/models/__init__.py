@@ -1,4 +1,3 @@
-from flask_sqlalchemy import BaseQuery
 from loguru import logger
 
 from transparencia_api import db

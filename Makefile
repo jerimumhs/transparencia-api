@@ -33,7 +33,7 @@ build:
 	docker-compose build
 
 config.env:
-	cp .env.example .env
+	cp .env.sample .env
 
 current_dir = $(notdir $(shell pwd))
 remove.volumes:
@@ -50,7 +50,7 @@ clear.docker:
 # Local commands
 ################################################################################
 local.pip.install:
-	pip install -r requirements/local.txt
+	pip install -r requirements-dev.txt
 
 ################################################################################
 # Heroku commands

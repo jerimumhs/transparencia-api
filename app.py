@@ -6,15 +6,16 @@ from flask_marshmallow import Marshmallow
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
 from flasgger import Swagger
+from dynaconf import FlaskDynaconf
 
-from config import configure_app
 from resources import add_resources
 
 
 app = Flask(__name__)
 CORS(app)
-configure_app(app)
-api = Api(app)
+FlaskDynaconf(app)
+
+api = Api(app, prefix='/api/v1')
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 migrate = Migrate(app, db)
@@ -23,4 +24,4 @@ swagger = Swagger(app)
 
 
 add_resources(api)
-from models import *
+from models import *  # noqa F401

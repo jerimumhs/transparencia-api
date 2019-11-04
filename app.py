@@ -8,7 +8,7 @@ from flask_cors import CORS
 from flasgger import Swagger
 from decouple import config
 
-from transparencia_api.resources import add_resources
+from resources import add_resources
 
 
 app = Flask(__name__)
@@ -35,7 +35,6 @@ app.config.update(
                             f"{config('DB_NAME')}?client_encoding=utf8"
 )
 
-
 api = Api(app, prefix='/api/v1')
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
@@ -43,4 +42,6 @@ migrate = Migrate(app, db)
 jwt = JWTManager(app)
 swagger = Swagger(app)
 
+
 add_resources(api)
+from models import *  # noqa F401

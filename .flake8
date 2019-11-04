@@ -4,5 +4,6 @@ exclude =
 	.git,
 	config.py,
 	__pycache__
+	migrations/*
 	env/*
 	venv/*

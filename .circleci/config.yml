@@ -1,0 +1,36 @@
+version: 2.1
+
+executors:
+  machine-executor:
+    machine:
+      image: circleci/classic:latest
+  python-executor:
+    docker:
+      - image: circleci/python:3.7
+
+commands:
+  base-command:
+    steps:
+      - checkout
+      - run: make env.cp
+
+jobs:
+  flake8:
+    executor: python-executor
+    steps:
+      - checkout
+      - run: sudo pip install flake8
+      - run: flake8
+
+  test:
+    executor: machine-executor
+    steps:
+      - base-command
+      - run: echo 'test'
+
+workflows:
+  version: 2.1
+  tests:
+    jobs:
+      - flake8
+      - test

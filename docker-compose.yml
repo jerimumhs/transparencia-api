@@ -1,7 +1,9 @@
 version: '3'
+
 services:
   postgres:
     image: postgres:11
+    container_name: postgres
     volumes:
       - pg_volume:/var/lib/postgresql/data
     restart: always
@@ -13,6 +15,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    command: flask run
+    container_name: api-server
     depends_on:
       - postgres
     volumes:

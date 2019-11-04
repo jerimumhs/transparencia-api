@@ -4,9 +4,9 @@ default:
 	@echo "  make run               # Starts a Flask development server locally"
 	@echo "  make shell             # Runs 'flask shell' locally with iPython"
 	@echo "  make flake8            # Check code styling with flake8"
-	@echo "  make makemigration     # Create a new migration"
-	@echo "  make migrate           # Apply a new migration"
-	@echo "  make downgrade         # Reverse a migration"
+	@echo "  make makemigrations    # Create new migrations"
+	@echo "  make migrate           # Apply new migrations"
+	@echo "  make downgrade         # Reverse last migrations"
 
 run:
 	flask run
@@ -14,49 +14,25 @@ run:
 shell:
 	flask shell
 
-set-env:
-	pip install -r requirements-dev.txt
-	cp .env.example .env
-migrate:
-	docker-compose run flask ????
-
 makemigrations:
-	docker-compose run flask ????
-
-test:
-	docker-compose run flask ????
-
-bash:
-	docker-compose run flask bash
-
-up:
-	docker-compose up -d
-
-logs:
-	docker-compose logs -f
-
-down:
-	docker-compose down
-
-build:
-	docker-compose build
-
-config.env:
-	cp .env.sample .env
-
-db.makemigration:
 	flask db migrate
 
-db.migrate:
+migrate:
 	flask db upgrade
 
-db.downgrade:
+downgrade:
 	flask db downgrade
 
 flake8:
 	flake8
+
 ################################################################################
-# Local commands
+# Configuration
 ################################################################################
-local.pip.install:
+pip.install:
 	pip install -r requirements-dev.txt
+
+config.env:
+	cp .env.sample .env
+
+set-env: config.env pip.install

@@ -12,7 +12,7 @@ commands:
   base-command:
     steps:
       - checkout
-      - run: make config.env
+      - run: make env.cp
 
 jobs:
   flake8:

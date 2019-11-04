@@ -6,7 +6,7 @@ default:
 	@echo "  make run               # Starts a Flask development server locally"
 	@echo "  make shell             # Runs 'flask shell' locally with iPython"
 	@echo "  make flake8            # Check code styling with flake8"
-	@echo "  make tests             # Runs test suite"
+	@echo "  make test              # Runs test suite"
 	@echo "  make makemigrations    # Create new migrations"
 	@echo "  make migrate           # Apply new migrations"
 	@echo "  make downgrade         # Reverse last migrations"
@@ -20,7 +20,7 @@ default:
 	@echo "  make docker.bash                       # Runs 'bash' on api-server service"
 	@echo "  make docker.shell                      # Runs 'flask shell' on api-server service"
 	@echo "  make docker.flake8                     # Check code styling with flake8 on api-server service"
-	@echo "  make docker.tests                      # Runs test suite on api-server service"
+	@echo "  make docker.test                       # Runs test suite on api-server service"
 	@echo "  make docker.makemigrations             # Create new migrations"
 	@echo "  make docker.migrate                    # Apply new migrations"
 	@echo "  make docker.docker.api-server.stop     # Stop docker-compose api-server service"
@@ -60,7 +60,7 @@ downgrade:
 flake8:
 	flake8
 
-tests:
+test:
 	echo 'TEST'
 
 ################################################################################

@@ -26,7 +26,7 @@ jobs:
     executor: machine-executor
     steps:
       - base-command
-      - run: make docker.test
+      - run: echo 'test'
 
 workflows:
   version: 2.1

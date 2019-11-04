@@ -6,14 +6,34 @@ from flask_marshmallow import Marshmallow
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
 from flasgger import Swagger
-from dynaconf import FlaskDynaconf
+from decouple import config
 
 from resources import add_resources
 
 
 app = Flask(__name__)
 CORS(app)
-FlaskDynaconf(app)
+app.config.update(
+    DEBUG=config('FLASK_DEBUG', default=False, cast=bool),
+    TESTING=config('FLASK_TESTING', default=False, cast=bool),
+    ENV=config('FLASK_ENV', default='production'),
+
+    JWT_TOKEN_LOCATION=['headers'],
+    JWT_ACCESS_TOKEN_EXPIRES=20,
+    JWT_REFRESH_TOKEN_EXPIRES=1800,
+    JWT_HEADER_NAME='Authorization',
+    JWT_HEADER_TYPE='Bearer',
+    JWT_SECRET_KEY=config('JWT_SECRET_KEY'),
+
+    SQLALCHEMY_TRACK_MODIFICATIONS=True,
+    SQLALCHEMY_DATABASE_URI=f""
+                            f"postgres://"
+                            f"{config('DB_USER')}:"
+                            f"{config('DB_PASSWORD')}@"
+                            f"{config('DB_HOST')}:"
+                            f"{config('DB_PORT', cast=int)}/"
+                            f"{config('DB_NAME')}?client_encoding=utf8"
+)
 
 api = Api(app, prefix='/api/v1')
 db = SQLAlchemy(app)

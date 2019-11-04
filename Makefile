@@ -17,6 +17,32 @@ shell:
 set-env:
 	pip install -r requirements-dev.txt
 	cp .env.example .env
+migrate:
+	docker-compose run flask ????
+
+makemigrations:
+	docker-compose run flask ????
+
+test:
+	docker-compose run flask ????
+
+bash:
+	docker-compose run flask bash
+
+up:
+	docker-compose up -d
+
+logs:
+	docker-compose logs -f
+
+down:
+	docker-compose down
+
+build:
+	docker-compose build
+
+config.env:
+	cp .env.sample .env
 
 db.makemigration:
 	flask db migrate
@@ -29,3 +55,8 @@ db.downgrade:
 
 flake8:
 	flake8
+################################################################################
+# Local commands
+################################################################################
+local.pip.install:
+	pip install -r requirements-dev.txt

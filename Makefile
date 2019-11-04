@@ -1,59 +1,38 @@
-################################################################################
-# Docker-compose flask service commands for dev
-################################################################################
+default:
+	@echo "Local examples:"
+	@echo "  make set-env           # Set the dev enviroment (install deps and create .env)"
+	@echo "  make run               # Starts a Flask development server locally"
+	@echo "  make shell             # Runs 'flask shell' locally with iPython"
+	@echo "  make flake8            # Check code styling with flake8"
+	@echo "  make makemigrations    # Create new migrations"
+	@echo "  make migrate           # Apply new migrations"
+	@echo "  make downgrade         # Reverse last migrations"
 
 run:
-	docker-compose run flask $(cmd)
+	flask run
 
-flake8:
-	docker-compose run flask flake8
-
-migrate:
-	docker-compose run flask ????
+shell:
+	flask shell
 
 makemigrations:
-	docker-compose run flask ????
+	flask db migrate
 
-test:
-	docker-compose run flask ????
+migrate:
+	flask db upgrade
 
-bash:
-	docker-compose run flask bash
+downgrade:
+	flask db downgrade
 
-up:
-	docker-compose up -d
+flake8:
+	flake8
 
-logs:
-	docker-compose logs -f
-
-down:
-	docker-compose down
-
-build:
-	docker-compose build
+################################################################################
+# Configuration
+################################################################################
+pip.install:
+	pip install -r requirements-dev.txt
 
 config.env:
 	cp .env.sample .env
 
-current_dir = $(notdir $(shell pwd))
-remove.volumes:
-	docker-compose down
-	docker volume rm $(current_dir)_postgres_data
-
-clear.python:
-	find . -type d -name __pycache__ -o \( -type f -name '*.py[co]' \) -print0 | xargs -0 rm -rf
-
-clear.docker:
-	docker ps | awk '{print $$1}' | grep -v CONTAINER | xargs docker stop
-
-################################################################################
-# Local commands
-################################################################################
-local.pip.install:
-	pip install -r requirements-dev.txt
-
-################################################################################
-# Heroku commands
-################################################################################
-deploy:
-	git push heroku
+set-env: config.env pip.install

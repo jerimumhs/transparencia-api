@@ -102,7 +102,7 @@ docker.downgrade:
 docker.api-server.stop:
 	docker stop api-server
 
-docker.api-server.restart: docker.bot.stop docker.up
+docker.api-server.restart: docker.api-server.stop docker.up
 
 docker.volumes.remove: docker.down
 	docker volume rm $(current_dir)_pg_volume

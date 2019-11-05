@@ -61,7 +61,7 @@ flake8:
 	flake8
 
 test:
-	echo 'TEST'
+	pytest
 
 ################################################################################
 # Docker-compose api-server service commands for dev
@@ -85,7 +85,7 @@ docker.shell:
 	docker-compose run api-server flask shell
 
 docker.test:
-	docker-compose run api-server echo 'TEST'
+	docker-compose run api-server pytest
 
 docker.flake8:
 	docker-compose run api-server flake8

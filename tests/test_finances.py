@@ -23,14 +23,14 @@ class TestFinances(BaseTestCase):
 
     def test_create_income(self):
         self.assertEqual(Ticket.query.count(), 0)
-        TicketFactory(type=Ticket.INCOME)
+        TicketFactory(type=Ticket.TicketType.INCOME)
         self.assertEqual(Ticket.query.count(), 1)
         self.assertEqual(Ticket.incomes.count(), 1)
         self.assertEqual(Ticket.expenses.count(), 0)
 
     def test_create_expense(self):
         self.assertEqual(Ticket.query.count(), 0)
-        TicketFactory(type=Ticket.EXPENSE)
+        TicketFactory(type=Ticket.TicketType.EXPENSE)
         self.assertEqual(Ticket.query.count(), 1)
         self.assertEqual(Ticket.expenses.count(), 1)
         self.assertEqual(Ticket.incomes.count(), 0)

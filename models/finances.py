@@ -1,3 +1,5 @@
+from enum import Enum
+
 from sqlalchemy_utils import ChoiceType
 from sqlalchemy.orm import validates
 
@@ -6,18 +8,15 @@ from utils import ClassProperty
 
 
 class Ticket(BaseModel):
-    EXPENSE = 'e'
-    INCOME = 'i'
-    TYPES = [
-        (EXPENSE, 'Gasto'),
-        (INCOME, 'Renda')
-    ]
+    class TicketType(Enum):
+        EXPENSE = 1
+        INCOME = 2
 
     name = db.Column(db.String(50), nullable=False)
     value = db.Column(db.Float, nullable=False)
     date = db.Column(db.Date, nullable=False)
 
-    _type = db.Column(ChoiceType(TYPES), nullable=False)
+    _type = db.Column(ChoiceType(TicketType, impl=db.Integer()), nullable=False)
 
     @validates('name', 'value', 'date', '_type')
     def validate_fields(self, key, value):
@@ -40,16 +39,16 @@ class Ticket(BaseModel):
 
     @type.setter
     def type(self, value):
-        if value not in [t[0] for t in self.TYPES]:
-            raise ValueError(f'Os possíveis valores para o type são: {[t[0] for t in self.TYPES]}')
+        if not isinstance(value, self.TicketType):
+            value = self.TicketType(value)
         self._type = value
 
     # noinspection PyMethodParameters
     @ClassProperty
     def expenses(cls):
-        return cls.query.filter_by(_type=cls.EXPENSE)
+        return cls.query.filter_by(_type=cls.TicketType.EXPENSE)
 
     # noinspection PyMethodParameters
     @ClassProperty
     def incomes(cls):
-        return cls.query.filter_by(_type=cls.INCOME)
+        return cls.query.filter_by(_type=cls.TicketType.INCOME)

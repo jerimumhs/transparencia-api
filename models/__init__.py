@@ -1,1 +1,1 @@
-from models.finances import *
+from models.finances import Ticket  # noqa F401

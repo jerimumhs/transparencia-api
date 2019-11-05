@@ -24,7 +24,8 @@ class BaseTestCase(TestCase):
             con.autocommit = True
 
             cur = con.cursor()
-            cur.execute(f"CREATE DATABASE {config('DB_TEST_NAME', default='test')};")
+            cur.execute(f"CREATE DATABASE "
+                        f"{config('DB_TEST_NAME', default='test')};")
         finally:
             cls.db.create_all()
 
@@ -40,7 +41,8 @@ class BaseTestCase(TestCase):
                                     f"{config('DB_PASSWORD')}@"
                                     f"{config('DB_HOST')}:"
                                     f"{config('DB_PORT', cast=int)}/"
-                                    f"{config('DB_TEST_NAME', default='test')}?client_encoding=utf8"
+                                    f"{config('DB_TEST_NAME', default='test')}"
+                                    f"?client_encoding=utf8"
         )
         return app
 

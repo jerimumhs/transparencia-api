@@ -32,7 +32,12 @@ app.config.update(
                             f"{config('DB_PASSWORD')}@"
                             f"{config('DB_HOST')}:"
                             f"{config('DB_PORT', cast=int)}/"
-                            f"{config('DB_NAME')}?client_encoding=utf8"
+                            f"{config('DB_NAME')}?client_encoding=utf8",
+    SWAGGER={
+        "specs_route": "/",
+        "title": "Transparência API",
+        "description": "API para o portal de transparência do JerimumHS",
+    }
 )
 
 api = Api(app, prefix='/api/v1')
@@ -40,23 +45,7 @@ db = SQLAlchemy(app)
 ma = Marshmallow(app)
 migrate = Migrate(app, db)
 jwt = JWTManager(app)
-swagger = Swagger(app, config={
-        "headers": [
-        ],
-        "specs": [
-            {
-                "endpoint": 'apispec_1',
-                "route": '/apispec_1.json',
-                "rule_filter": lambda rule: True,  # all in
-                "model_filter": lambda tag: True,  # all in
-            }
-        ],
-        "static_url_path": "/flasgger_static",
-        # "static_folder": "static",  # must be set by user
-        "swagger_ui": True,
-        "specs_route": "/"
-    }
-)
+swagger = Swagger(app)
 
 
 add_resources(api)

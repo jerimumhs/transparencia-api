@@ -4,7 +4,7 @@ from factory import lazy_attribute
 from factory.alchemy import SQLAlchemyModelFactory
 
 from app import db
-from models import BaseModel
+from models.base import BaseModel
 
 
 class BaseModelFactory(SQLAlchemyModelFactory):

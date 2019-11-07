@@ -10,4 +10,4 @@ class TicketSchema(ma.ModelSchema):
     class Meta:
         model = Ticket
         session = db.session
-        fields = ['name', 'date', 'value', 'type', 'type_name']
+        fields = ['title', 'description', 'date', 'value', 'type', 'type_name']

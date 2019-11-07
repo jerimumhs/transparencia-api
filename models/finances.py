@@ -12,13 +12,14 @@ class Ticket(BaseModel):
         EXPENSE = 1
         INCOME = 2
 
-    name = db.Column(db.String(50), nullable=False)
+    title = db.Column(db.String(50), nullable=False)
+    description = db.Column(db.String(255))
     value = db.Column(db.Float, nullable=False)
     date = db.Column(db.Date, nullable=False)
 
     _type = db.Column(ChoiceType(TicketType, impl=db.Integer()), nullable=False)
 
-    @validates('name', 'value', 'date', '_type')
+    @validates('title', 'value', 'date', '_type')
     def validate_fields(self, key, value):
         if value in [None, '']:
             raise ValueError(f'O atributo {key} precisa ter um valor atribuido')

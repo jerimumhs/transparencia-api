@@ -9,10 +9,15 @@ class TestFinances(BaseTestCase):
         TicketFactory()
         self.assertEqual(Ticket.query.count(), 1)
 
+    def test_create_ticket_empty_description(self):
+        self.assertEqual(Ticket.query.count(), 0)
+        TicketFactory(description='')
+        self.assertEqual(Ticket.query.count(), 1)
+
     def test_create_ticket_fail(self):
         self.assertEqual(Ticket.query.count(), 0)
-        self.assertRaises(ValueError, TicketFactory, name='')
-        self.assertRaises(ValueError, TicketFactory, name=None)
+        self.assertRaises(ValueError, TicketFactory, title='')
+        self.assertRaises(ValueError, TicketFactory, title=None)
         self.assertRaises(ValueError, TicketFactory, date=None)
         self.assertRaises(ValueError, TicketFactory, value=None)
         self.assertRaises(ValueError, TicketFactory, value=0)

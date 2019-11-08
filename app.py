@@ -8,8 +8,6 @@ from flask_cors import CORS
 from flasgger import Swagger
 from decouple import config
 
-from resources import add_resources
-
 
 app = Flask(__name__)
 CORS(app)
@@ -40,13 +38,15 @@ app.config.update(
     }
 )
 
-api = Api(app, prefix='/api/v1')
+api = Api(app)
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 migrate = Migrate(app, db)
 jwt = JWTManager(app)
 swagger = Swagger(app)
 
+
+from resources import add_resources
 
 add_resources(api)
 from models import *  # noqa F401

@@ -15,6 +15,7 @@ class BaseModel(db.Model):
     def save(self):
         db.session.add(self)
         db.session.commit()
+        return self
 
     @logger.catch
     def delete(self):

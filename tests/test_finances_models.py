@@ -3,7 +3,7 @@ from models.finances import Ticket
 from tests.factories.finances import TicketFactory
 
 
-class TestFinances(BaseTestCase):
+class TestTicket(BaseTestCase):
     def test_create_ticket(self):
         self.assertEqual(Ticket.query.count(), 0)
         TicketFactory()

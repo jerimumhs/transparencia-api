@@ -1,7 +1,7 @@
 import psycopg2
-from sqlalchemy.exc import OperationalError
-from flask_testing import TestCase
 from decouple import config
+from flask_testing import TestCase
+from sqlalchemy.exc import OperationalError
 
 from app import app, db
 
@@ -79,3 +79,21 @@ class BaseTestCase(TestCase):
         self.app_context.pop()
 
         super(BaseTestCase, self).tearDown()
+
+
+class BaseAPITestCase(BaseTestCase):
+    def setUp(self):
+        super(BaseAPITestCase, self).setUp()
+        self.endpoint = None
+
+    def get_path(self, id_detail=None, action=None, _filter=None):
+        if not self.endpoint:
+            raise AttributeError('Endpoint não definido')
+        path = f'/{self.endpoint}/'
+        if id_detail:
+            path += f'{id_detail}/'
+        if action:
+            path += f'{action}/'
+        if filter:
+            path += f'?{_filter}'
+        return path

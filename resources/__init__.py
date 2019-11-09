@@ -13,5 +13,5 @@ def add_resources(api):
     )
     api.add_resource(
         TicketDetail,
-        '/tickets/<ticket_id>'
+        '/tickets/<ticket_id>/'
     )

@@ -44,6 +44,7 @@ class BaseTestCase(TestCase):
         return app
 
     def setUp(self):
+        db.session.remove()
         self.create_all()
 
     def tearDown(self):
@@ -65,5 +66,5 @@ class BaseAPITestCase(BaseTestCase):
         if action:
             path += f'{action}/'
         if filter:
-            path += f'?{_filter}'
+            path += f'?{_filter or ""}'
         return path

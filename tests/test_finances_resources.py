@@ -30,7 +30,7 @@ class TestTicketResources(BaseTestCase):
         self.assertEqual(Ticket.query.count(), 1)
 
     def test_create_ticket_fail(self):
-        self.assertEqual(Ticket.query.count(), 0)
+        self.assertEqual(Ticket.query.count(), 0, msg=ticket_schema.dump(Ticket.query.first()))
 
         data = {
             'title': 1,
@@ -47,4 +47,4 @@ class TestTicketResources(BaseTestCase):
         self.assertTrue(response.json.get('value'))
         self.assertTrue(response.json.get('date'))
         self.assertTrue(response.json.get('type'))
-        self.assertEqual(Ticket.query.count(), 0)
+        self.assertEqual(Ticket.query.count(), 0, msg=ticket_schema.dump(Ticket.query.first()))

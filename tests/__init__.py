@@ -7,12 +7,10 @@ from app import app, db
 
 
 class BaseTestCase(TestCase):
-    db = None
-
-    @classmethod
-    def create_all(cls):
+    @staticmethod
+    def create_all():
         try:
-            cls.db.engine.execute("SELECT 1")
+            db.engine.execute("SELECT 1")
         except OperationalError:
             con = psycopg2.connect(
                 dbname=config('DB_NAME'),
@@ -27,10 +25,9 @@ class BaseTestCase(TestCase):
             cur.execute(f"CREATE DATABASE "
                         f"{config('DB_TEST_NAME', default='test')};")
         finally:
-            cls.db.create_all()
+            db.create_all()
 
-    @staticmethod
-    def create_app_test():
+    def create_app(self):
         app.config.update(
             TESTING=True,
             DEBUG=True,
@@ -46,39 +43,12 @@ class BaseTestCase(TestCase):
         )
         return app
 
-    @classmethod
-    def clean_db(cls):
-        for table in reversed(cls.db.metadata.sorted_tables):
-            cls.db.session.execute(table.delete())
-
-    @classmethod
-    def setUpClass(cls):
-        super(BaseTestCase, cls).setUpClass()
-        cls.app = cls.create_app_test()
-        cls.db = db
-        cls.create_all()
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.db.drop_all()
-        super(BaseTestCase, cls).tearDownClass()
-
-    def create_app(self):
-        return self.app
-
     def setUp(self):
-        super(BaseTestCase, self).setUp()
-
-        self.client = self.app.test_client()
-        self.app_context = self.app.app_context()
-        self.app_context.push()
-        self.clean_db()
+        self.create_all()
 
     def tearDown(self):
-        self.db.session.rollback()
-        self.app_context.pop()
-
-        super(BaseTestCase, self).tearDown()
+        db.session.remove()
+        db.drop_all()
 
 
 class BaseAPITestCase(BaseTestCase):
